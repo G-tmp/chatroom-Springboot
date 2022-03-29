@@ -38,10 +38,6 @@ public class IndexController {
         JsonRes jsonRes = new JsonRes();
         jsonRes.setCode(JsonRes.SUCCESS_CODE).setMsg(JsonRes.SUCCESS_MSG);
 
-        Room room1 = new Room();
-        room1.setId("MVNCfbtxd").setName("http://127.0.0.1").setLimitCount(10).setOnlineCount(8);
-        RoomManager.add(room1.getId(), room1);
-
         Collection<Room> rooms = RoomManager.list().values();
         Map<String,Object> data = new HashMap<>();
         data.put("roomList", rooms);

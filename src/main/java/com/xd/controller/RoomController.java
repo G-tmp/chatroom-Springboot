@@ -6,12 +6,12 @@ import com.xd.util.JsonRes;
 import com.xd.util.RoomManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class RoomController {
@@ -21,7 +21,7 @@ public class RoomController {
 
 
     @RequestMapping(value = "/room/{roomId}",method = RequestMethod.GET)
-    public String room(@PathVariable("roomId") String roomId, Model model){
+    public String room(@PathVariable("roomId") String roomId){
         if (RoomManager.get(roomId) == null)
             return "404";
 
@@ -51,12 +51,29 @@ public class RoomController {
         return  jsonRes;
     }
 
-    @ResponseBody
-    @RequestMapping("/room/create")
-    public String create(){
 
-        return "";
+    @RequestMapping(value = "/room/create", method = RequestMethod.GET)
+    public String create(){
+        return "room_create";
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/room/create", method = RequestMethod.POST)
+    public JsonRes create(@RequestBody Room room){
+        JsonRes jsonRes = new JsonRes();
+
+        room.setId(UUID.randomUUID().toString());
+        RoomManager.add(room.getId(), room);
+
+        jsonRes.setCode(JsonRes.SUCCESS_CODE).setMsg(JsonRes.SUCCESS_MSG);
+        Map<String, Object> data = new HashMap<>();
+        data.put("room", room);
+        jsonRes.setData(data);
+
+        return jsonRes;
+    }
+
 
 //    @ResponseBody
 //    @RequestMapping("/send")

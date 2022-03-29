@@ -14,9 +14,7 @@ function onloadIndex() {
                         '        <div class="card-body">\n' +
                         '            <h4 class="card-title">' +
                         room.name +
-                        '<span class="badge badge-secondary">' +
-                        room.onlineCount + '/' + room.limitCount +
-                        '</span></h4>\n' +
+                        '</h4>\n' +
                         '            <a href="/room/' + room.id + '"' +
                         'class="card-link">Enter</a>\n' +
                         '        </div>\n' +

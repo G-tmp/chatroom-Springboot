@@ -54,6 +54,7 @@ public class ChatRoomTextHandler extends TextWebSocketHandler {
         Principal principal = (Principal) session.getAttributes().get("principal");
         User user = (User) principal.getCredential();
         String sessionId = principal.getSessionId();
+        String roomId = channelPath.substring(channelPath.lastIndexOf("/") + 1);
 
         Message message = new Message();
         message.setType(MessageConstant.TYPE_OWNER)
@@ -79,6 +80,7 @@ public class ChatRoomTextHandler extends TextWebSocketHandler {
         String sessionId = principal.getSessionId();
         User user = (User) principal.getCredential();
         String channelPath = (String) session.getAttributes().get("channelPath");
+        String roomId = channelPath.substring(channelPath.lastIndexOf("/") + 1);
 
 
         // someone leave
@@ -92,8 +94,10 @@ public class ChatRoomTextHandler extends TextWebSocketHandler {
         sendAllExcept(channelPath, message.toJson(), sessionId);
 
         WSChannelManager.remove(channelPath, sessionId);
-        if (WSChannelManager.subscriberSet(channelPath) == null)
-            RoomManager.remove("");
+
+//        if (WSChannelManager.subscriberSet(channelPath) == null) {
+//            RoomManager.remove(roomId);
+//        }
     }
 
 

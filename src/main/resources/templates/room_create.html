@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>create</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -11,9 +12,45 @@
 <body>
 
 <div class="container">
-
+    <h4>create room</h4>
+    <form>
+        <div class="form-group">
+            <label for="roomName">room name</label>
+            <input type="text" class="form-control" placeholder="Enter room name" id="roomName">
+        </div>
+        <a class="btn btn-primary" onclick="createRoom()">Submit</a>
+    </form>
 
 </div>
 
+<script>
+    function createRoom() {
+        var roomName = $("#roomName").val();
+
+        var data = {
+            name: roomName,
+        };
+
+        $.ajax({
+            type: "post",
+            url: "/room/create",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                // alert(JSON.stringify(result));
+                if (result.code === 0) {
+                    window.location.href = window.location.protocol + '//' + window.location.host + '/room/' + result.data.room.id;
+                } else {
+                    alert(result.msg);
+                }
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+
+</script>
 </body>
 </html>

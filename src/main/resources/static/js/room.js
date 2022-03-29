@@ -12,7 +12,8 @@ function onloadRoom() {
         success: function (jsonRes) {
             console.log(jsonRes);
             if (jsonRes.code === 0) {
-                $('#roomName').val(jsonRes.data.room.name);
+                $('#roomName').text(jsonRes.data.room.name);
+                $('#onlineCount').text(8);
                 channel = jsonRes.data.channel;
                 wsconnect('ws://' + window.location.host + channel);
             } else {
@@ -24,6 +25,7 @@ function onloadRoom() {
         }
     });
 }
+
 
 function wsconnect(wsURL) {
     ws = new WebSocket(wsURL);

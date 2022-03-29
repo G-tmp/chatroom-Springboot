@@ -5,7 +5,7 @@ public class Room {
     private String id;
     private String name;
     private int onlineCount;
-    private int limitCount;
+//    private int limitCount;
 
     public Room(){}
 
@@ -36,13 +36,12 @@ public class Room {
         return this;
     }
 
-    public int getLimitCount() {
-        return limitCount;
+    public void plusOnlineCount(){
+        this.onlineCount +=1;
     }
 
-    public Room setLimitCount(int limitCount) {
-        this.limitCount = limitCount;
-        return this;
+    public void minusOnlineCount(){
+        this.onlineCount -=1;
     }
 
     @Override
@@ -51,7 +50,6 @@ public class Room {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", onlineCount=" + onlineCount +
-                ", limitCount=" + limitCount +
                 '}';
     }
 }
